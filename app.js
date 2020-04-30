@@ -56,6 +56,13 @@ const internQuestion = inquirer.prompt([
     }    
 ]);
 
+const managerQuestion = inquirer.prompt([
+    {
+        type: "input",
+        name: "managerOfficeNumber",
+        message: "What is the managers office number?"
+    }
+]);
 
 employeeQuestions;
 
