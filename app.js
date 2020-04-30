@@ -40,6 +40,23 @@ const employeeQuestions = inquirer.prompt([
     },
 ]);
 
+const engineerQuestion = inquirer.prompt([
+    {
+        type: "input",
+        name: "employeeGitHub",
+        message: "What is the employees github username?"
+    },
+]);
+
+const internQuestion = inquirer.prompt([
+    {
+        type: "input",
+        name: "internSchoolName",
+        message: "What school is the intern attending?"
+    }    
+]);
+
+
 employeeQuestions;
 
 
