@@ -32,12 +32,6 @@ const employeeQuestions = inquirer.prompt([
         message: "What is the employees role?",
         choices: ["Employee", "Engineer", "Intern", "Manager"]
     },
-    {
-        type: "list",
-        name: "continue",
-        message: "I Would Like To Add Another Employee",
-        choices: ["True", "False"]
-    },
 ]);
 
 const engineerQuestion = inquirer.prompt([
