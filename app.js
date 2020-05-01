@@ -10,56 +10,106 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const employeeQuestions = inquirer.prompt([
-    {
-        type: "input",
-        name: "name",
-        message: "What is the employee name?"
-    },
-    {
-        type: "input",
-        name: "employeeId",
-        message: "What is thier employee ID?"
-    },
-    {
-        type: "input",
-        name: "employeeEmail",
-        message: "What is the employee email?"
-    },
-    {
-        type: "list",
-        name: "employeeRole",
-        message: "What is the employees role?",
-        choices: ["Employee", "Engineer", "Intern", "Manager"]
-    },
-]);
+const employees = [];
 
-const engineerQuestion = inquirer.prompt([
-    {
-        type: "input",
-        name: "employeeGitHub",
-        message: "What is the employees github username?"
-    },
-]);
+function promptEmployeeQuestions()
+{
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the employee name?"
+        },
+        {
+            type: "input",
+            name: "employeeId",
+            message: "What is thier employee ID?"
+        },
+        {
+            type: "input",
+            name: "employeeEmail",
+            message: "What is the employee email?"
+        }
+    ]);
 
-const internQuestion = inquirer.prompt([
-    {
-        type: "input",
-        name: "internSchoolName",
-        message: "What school is the intern attending?"
-    }    
-]);
+}
 
-const managerQuestion = inquirer.prompt([
+function promptRole()
+{
+    return inquirer.prompt([
+        {
+            type: "list",
+            name: "employeeRole",
+            message: "What is the employees role?",
+            choices: ["Engineer", "Intern", "Manager"]
+        }
+    ])
+}
+
+function promptEngineerQuestion()
+{
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "employeeGitHub",
+            message: "What is the employees github username?"
+        },
+    ]);
+}
+function promptInternQuestion()
+{
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "internSchoolName",
+            message: "What school is the intern attending?"
+        }    
+    ]);
+}
+function promptManagerQuestion()
+{
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "managerOfficeNumber",
+            message: "What is the managers office number?"
+        }
+    ]);
+}
+
+
+async function init(){
+
+    let continueAdding = true;
+
+    while(continueAdding === true)
     {
-        type: "input",
-        name: "managerOfficeNumber",
-        message: "What is the managers office number?"
+        let answers = await promptEmployeeQuestions();
+
+        let role = await promptRole();
+
+        switch(role.employeeRole)
+        {
+            case "Engineer":
+                Object.assign(answers, await promptEngineerQuestion());
+                break;
+            case "Intern":
+                Object.assign(answers, await promptInternQuestion());
+                break;
+            case "Manager":
+                Object.assign(answers, await promptManagerQuestion());
+                break;
+            default:
+                break;
+        }
+        
+        console.log(answers);
     }
-]);
 
-employeeQuestions;
+    
+}
 
+init();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
