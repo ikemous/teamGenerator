@@ -163,7 +163,13 @@ async function init(){
     }    
     console.log(employees);
     let htmlString = render(employees)
-    
+
+    fs.writeFile("index.html", htmlString, (err)=>{
+        if(err)
+            throw err;
+        console.log("Employee Files Have Been Created");
+    });
+
 }
 
 init();
