@@ -76,6 +76,36 @@ function promptManagerQuestion()
         }
     ]);
 }
+function promptVerifyInformation()
+{
+    return inquirer.prompt([
+        {
+            type: "list",
+            name: "verified",
+            message: "Does the employee information look correct?",
+            choices: ["yes", "no"]
+        }
+    ]).then(answers => {
+        if(answers.verified === "yes")
+            return true;
+        return false;
+    });
+}
+function promptForContinue()
+{
+    return inquirer.prompt([
+        {
+            type: "list",
+            name: "continue",
+            message: "Do you want to add another employee?",
+            choices: ["yes", "no"]
+        }
+    ]).then(answers => {
+        if(answers.continue === "yes")
+            return true;
+        return false;
+    });
+}
 
 
 async function init(){
@@ -87,6 +117,9 @@ async function init(){
         let answers = await promptEmployeeQuestions();
 
         let role = await promptRole();
+
+        let values = [];
+        let keys = [];
 
         switch(role.employeeRole)
         {
@@ -103,10 +136,26 @@ async function init(){
                 break;
         }
         
-        console.log(answers);
-    }
+        for(let value of Object.keys(answers))
+            values.push(value);
+        for(let key of Object.values(answers))
+            keys.push(key);
+        
+        for(let i = 0; i < keys.length; i++)
+            console.log(`${values[i]}: ${keys[i]}`)
 
-    
+        let correctInformation = await promptVerifyInformation();
+        if(correctInformation === false)
+            continue;
+
+        employees.push(answers);
+
+        let addAnotherEmployee = await promptForContinue();
+        if(addAnotherEmployee === false)
+            continueAdding = false;
+
+    }    
+    console.log(employees);
 }
 
 init();
