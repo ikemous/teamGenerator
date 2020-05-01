@@ -116,6 +116,8 @@ async function init(){
     {
         let answers = await promptEmployeeQuestions();
 
+        let newEmployee;
+
         let role = await promptRole();
 
         let values = [];
@@ -125,30 +127,34 @@ async function init(){
         {
             case "Engineer":
                 Object.assign(answers, await promptEngineerQuestion());
+                newEmployee = new Engineer(...Object.values(answers));
                 break;
             case "Intern":
                 Object.assign(answers, await promptInternQuestion());
+                newEmployee = new Intern(...Object.values(answers));
                 break;
             case "Manager":
                 Object.assign(answers, await promptManagerQuestion());
+                newEmployee = new Manager(...Object.values(answers));
                 break;
             default:
                 break;
         }
         
-        for(let value of Object.keys(answers))
-            values.push(value);
-        for(let key of Object.values(answers))
-            keys.push(key);
+        console.log(newEmployee);
+        // for(let value of Object.keys(answers))
+        //     values.push(value);
+        // for(let key of Object.values(answers))
+        //     keys.push(key);
         
-        for(let i = 0; i < keys.length; i++)
-            console.log(`${values[i]}: ${keys[i]}`)
+        // for(let i = 0; i < keys.length; i++)
+        //     console.log(`${values[i]}: ${keys[i]}`)
 
         let correctInformation = await promptVerifyInformation();
         if(correctInformation === false)
             continue;
 
-        employees.push(answers);
+        employees.push(newEmployee);
 
         let addAnotherEmployee = await promptForContinue();
         if(addAnotherEmployee === false)
@@ -156,6 +162,8 @@ async function init(){
 
     }    
     console.log(employees);
+    let htmlString = render(employees)
+    
 }
 
 init();
