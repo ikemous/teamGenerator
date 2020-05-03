@@ -163,6 +163,7 @@ async function init(){
     //declare variable to be used for while loop
     let continueAdding = true;
 
+    //Keep creating employees 
     while(continueAdding === true)
     {
         //Create variable to store the Employee
@@ -234,4 +235,5 @@ async function init(){
 
 }//end init()
 
+//Intialize 
 init();
