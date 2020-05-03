@@ -226,7 +226,7 @@ async function init(){
     let htmlString = render(employees)
 
     //Create index.html file
-    fs.writeFile("index.html", htmlString, (err)=>{
+    fs.writeFile(outputPath, htmlString, (err)=>{
         if(err)
             throw err;
         //Tell the user that the file has been created
