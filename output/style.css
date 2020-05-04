@@ -1,0 +1,15 @@
+.jumbotron{
+    background-color: lightblue;
+}
+.card-header{
+    background-color: orange;
+}
+.employee-card
+{
+    margin: 5px;
+}
+
+.team-area
+{
+    flex-wrap: wrap;
+}
