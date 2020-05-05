@@ -4,7 +4,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const promptQuestions = require("./lib/promptQuestions")
+const questions = require("./lib/questions");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -22,21 +22,21 @@ async function createEmployee(answers, roleChoice)
         ///Employee is an engineer
         case "Engineer":
             //Prompt user for the Engineer question and combine the answers
-            Object.assign(answers, await promptQuestions.promptEngineerQuestion());
+            Object.assign(answers, await questions.promptEngineerQuestion());
             //Assign the new employee as an Engineer
             newEmployee = new Engineer(...Object.values(answers));
             break;
         //Employee is an Intern
         case "Intern":
             //Prompt user for the Engineer question and combine the answers
-            Object.assign(answers, await promptQuestions.promptInternQuestion());
+            Object.assign(answers, await questions.promptInternQuestion());
             //Assign the new employee as an Intern
             newEmployee = new Intern(...Object.values(answers));
             break;
             //Emplyee is an Manager
         case "Manager":
             //Prompt user for the Engineer question and combine the answers
-            Object.assign(answers, await promptQuestions.promptManagerQuestion());
+            Object.assign(answers, await questions.promptManagerQuestion());
             //Assign the new employee as an Manager
             newEmployee = new Manager(...Object.values(answers));
             break;
@@ -64,40 +64,28 @@ async function init()
     {
 
         //Prompt General Employee Answers
-        let answers = await promptQuestions.promptEmployeeQuestions();
-
+        let answers = await questions.promptEmployeeQuestions();
         //As what role the employee is
-        let role = await promptQuestions.promptRole();
-
-
+        let role = await questions.promptRole();
         //Create variable to store the Employee
         let newEmployee = await createEmployee(answers, role);
-
         //Display Employee Information To The User
         console.log(newEmployee);
-
         //Ask if the information generated is correct
-        let correctInformation = await promptQuestions.promptVerifyInformation();
-
+        let correctInformation = await questions.promptVerifyInformation();
         //Information wasn't correct
         if(correctInformation === false)
             continue;//Go back to the beginning of the while loop
-
         //Add the employee in the employees array
         employees.push(newEmployee);
-
         //Ask the user if they want to add another employee
-        let addAnotherEmployee = await promptQuestions.promptForContinue();
-
+        let addAnotherEmployee = await questions.promptForContinue();
         //User didnt want to add another employee
         if(addAnotherEmployee === false)
             continueAdding = false;//Make continue adding false
-
     }//End Employee Creation 
-    
     //Create HTML using render 
     let htmlString = render(employees)
-
     //Create index.html file
     fs.writeFile(outputPath, htmlString, (err)=>{
         if(err)
