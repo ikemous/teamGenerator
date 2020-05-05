@@ -27,7 +27,7 @@ describe("Initializing the Employee Class", () =>{
 
 });
 
-describe("Using Employee Methods", () =>{
+describe("Test Employee Class Methods", () =>{
 
   test("Can get name via getName()", () => {
     const testValue = "Alice";
@@ -52,6 +52,6 @@ describe("Using Employee Methods", () =>{
     const e = new Employee("Alice", 1, "test@test.com");
     expect(e.getRole()).toBe(testValue);
   });
-  
+
 });
 
