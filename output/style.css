@@ -9,6 +9,14 @@
     padding-right: 0px!important;
     text-align: center!important;
 }
+.card-title{
+    min-height: 30px;
+    max-height: 30px;
+}
+.column{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+}
 .employee-card
 {
     margin: 5px;
