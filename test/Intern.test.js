@@ -1,8 +1,8 @@
 const Intern = require("../lib/Intern");
 
-describe("Initialization of Engineer class", () =>{
+describe("Initialization of Intern class", () =>{
 
-  test("Can instantiate Employee instance", () => {
+  test("Can instantiate Intern instance", () => {
     const e = new Intern();
     expect(typeof(e)).toBe("object");
   });

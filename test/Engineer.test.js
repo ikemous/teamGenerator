@@ -2,7 +2,7 @@ const Engineer = require("../lib/Engineer");
 
 describe("Initialization of Engineer class", () =>{
 
-  test("Can instantiate Employee instance", () => {
+  test("Can instantiate Engineer instance", () => {
     const e = new Engineer();
     expect(typeof(e)).toBe("object");
   });
