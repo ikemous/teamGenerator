@@ -203,7 +203,7 @@ async function init(){
         }//End Checking Employee Role
         
         //Display Employee Information To The User
-        console.log(newEmployee);
+        console.log(`\n${newEmployee}\n`);
 
         //Ask if the information generated is correct
         let correctInformation = await promptVerifyInformation();
