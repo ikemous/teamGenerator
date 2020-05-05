@@ -13,21 +13,55 @@ const render = require("./lib/htmlRenderer");
 
 const employees = [];
 
+async function createEmployee(answers, roleChoice)
+{
+    let newEmployee;
+    //Check which role the employee is placed under
+    switch(roleChoice.employeeRole)
+    {
+        ///Employee is an engineer
+        case "Engineer":
+            //Prompt user for the Engineer question and combine the answers
+            Object.assign(answers, await promptQuestions.promptEngineerQuestion());
+            //Assign the new employee as an Engineer
+            newEmployee = new Engineer(...Object.values(answers));
+            break;
+        //Employee is an Intern
+        case "Intern":
+            //Prompt user for the Engineer question and combine the answers
+            Object.assign(answers, await promptQuestions.promptInternQuestion());
+            //Assign the new employee as an Intern
+            newEmployee = new Intern(...Object.values(answers));
+            break;
+            //Emplyee is an Manager
+        case "Manager":
+            //Prompt user for the Engineer question and combine the answers
+            Object.assign(answers, await promptQuestions.promptManagerQuestion());
+            //Assign the new employee as an Manager
+            newEmployee = new Manager(...Object.values(answers));
+            break;
+        default:
+            break;
+    }//End Checking Employee Role
+
+    return newEmployee;
+
+}
+
 /**
  *      init()
  * Purpose: To initialize creation of the employees index.html using the prompt functions to ask the user questions
  * Parameters: None
  * Return: None
  */
-async function init(){
+async function init()
+{
     //declare variable to be used for while loop
     let continueAdding = true;
 
     //Keep creating employees 
     while(continueAdding === true)
     {
-        //Create variable to store the Employee
-        let newEmployee;
 
         //Prompt General Employee Answers
         let answers = await promptQuestions.promptEmployeeQuestions();
@@ -35,33 +69,9 @@ async function init(){
         //As what role the employee is
         let role = await promptQuestions.promptRole();
 
-        //Check which role the employee is placed under
-        switch(role.employeeRole)
-        {
-            ///Employee is an engineer
-            case "Engineer":
-                //Prompt user for the Engineer question and combine the answers
-                Object.assign(answers, await promptQuestions.promptEngineerQuestion());
-                //Assign the new employee as an Engineer
-                newEmployee = new Engineer(...Object.values(answers));
-                break;
-            //Employee is an Intern
-            case "Intern":
-                //Prompt user for the Engineer question and combine the answers
-                Object.assign(answers, await promptQuestions.promptInternQuestion());
-                //Assign the new employee as an Intern
-                newEmployee = new Intern(...Object.values(answers));
-                break;
-                //Emplyee is an Manager
-            case "Manager":
-                //Prompt user for the Engineer question and combine the answers
-                Object.assign(answers, await promptQuestions.promptManagerQuestion());
-                //Assign the new employee as an Manager
-                newEmployee = new Manager(...Object.values(answers));
-                break;
-            default:
-                break;
-        }//End Checking Employee Role
+
+        //Create variable to store the Employee
+        let newEmployee = await createEmployee(answers, role);
 
         //Display Employee Information To The User
         console.log(newEmployee);
