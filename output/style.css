@@ -9,10 +9,12 @@
     }
 }
 .jumbotron{
-    background-color: blue;
+    background-color: #143D59;
+    color: #F4B41A;
 }
 .card-header{
-    background-color: orange;
+    background-color: #F4B41A;
+    color: #143D59;
 }
 .card{
     padding-left: 0px!important;
