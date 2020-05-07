@@ -20,6 +20,9 @@
     padding-left: 0px!important;
     padding-right: 0px!important;
 }   
+.card:hover {
+    box-shadow: 0 8px 16px 0 red!important;
+}
 .card-header{
     text-align: center!important;
 }
