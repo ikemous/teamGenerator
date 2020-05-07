@@ -59,6 +59,7 @@ async function createEmployee(answers, role)
 
 }//End createEmployee()
 
+
 /**
  *      init()
  * Purpose: To initialize creation of the employees index.html using the prompt functions to ask the user questions
@@ -80,19 +81,23 @@ async function init()
         let role = await questions.promptRole();
         //Create variable to store the Employee
         let newEmployee = await createEmployee(answers, role.employeeRole);
-        //Display Employee Information To The User
-        console.log(newEmployee);
+        //Print Employee Info
+        newEmployee.printEmployeeInfo();
         //Ask if the information generated is correct
         let correctInformation = await questions.promptVerifyInformation();
         //Information wasn't correct
         if(correctInformation === false)
+        {
+            // Line to Seperate Employee Entries
+            console.log("------------------------------------------------------------------------------------");
             continue;//Go back to the beginning of the while loop
+        }
         //Add the employee in the employees array
         employees.push(newEmployee);
         //Ask the user if they want to add another employee
         let addAnotherEmployee = await questions.promptForContinue();
         // Line to Seperate Employee Entries
-        console.log("------------------------------------------------------------------------------------")
+        console.log("------------------------------------------------------------------------------------");
         //User didnt want to add another employee
         if(addAnotherEmployee === false)
             continueAdding = false;//Make continue adding false
